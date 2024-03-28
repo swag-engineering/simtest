@@ -2,6 +2,8 @@
 .gitignore
 
 **/.git
+**/.github
+**/.idea
 **/.gitmodules
 **/__pycache__
 **/.pytest_cache
@@ -10,6 +12,3 @@
 /tests
 
 /protogen.sh
-
-.idea
-.pytest_cache
