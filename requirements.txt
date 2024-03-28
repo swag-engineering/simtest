@@ -1,0 +1,5 @@
+betterproto==2.0.0b6
+grpclib
+grpcio-tools
+grpcio-reflection
+pytest-simbind

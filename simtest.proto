@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+service Simtest {
+    rpc InstallWheelPackage (InstallWheelPackageRequest) returns (Empty);
+    rpc StartTests (StartTestsRequest) returns (stream FunctionUpdate);
+}
+
+message Empty {}
+
+enum FunctionProgressEnum {
+    IDLE = 0;
+    RUNNING = 1;
+    FINISHED = 2;
+}
+
+enum FunctionStateEnum {
+    SUCCEED = 0;
+    FAILED = 1;
+    TERMINATED = 2;
+}
+
+enum LogLevelEnum {
+    DEBUG=0;
+    INFO=1;
+    WARNING=2;
+    ERROR=3;
+    CRITICAL=4;
+    INTERNAL=5;
+}
+
+message StartTestsRequest {
+    bytes tests_bytes = 1;
+    repeated TestFunction functions = 2;
+}
+
+message TestFunction {
+    string id = 1;
+    string node_id = 2;
+}
+
+message FunctionUpdate {
+    string test_id = 1;
+    FunctionProgressEnum progress = 2;
+    optional TestDataRecord data = 3;
+    optional TestStatus status = 4;
+}
+
+message TestDataRecord {
+    double timestamp = 1;
+    map<string, double> inputs = 2;
+    map<string, double> outputs = 3;
+    repeated LogMessage log_messages = 4;
+}
+
+message LogMessage {
+    LogLevelEnum log_level = 1;
+    string text = 2;
+    uint32 line_number = 3;
+    string file_location = 4;
+}
+
+message TestStatus {
+    FunctionStateEnum state = 1;
+    // exists if state == FAILED
+    optional FailDetails fail_details = 2;
+    // exists if state == TERMINATED
+    optional string internal_error = 3;
+
+}
+
+message FailDetails {
+    string exc_type = 1;
+    string text = 2;
+    uint32 line_number = 3;
+    string file_location = 4;
+}
+
+message InstallWheelPackageRequest {
+    string package_name = 1;
+    bytes package_bytes = 2;
+    bool force_reinstall = 3;
+}

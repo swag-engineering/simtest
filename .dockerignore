@@ -1,0 +1,15 @@
+.dockerignore
+.gitignore
+
+**/.git
+**/.gitmodules
+**/__pycache__
+**/.pytest_cache
+
+/venv
+/tests
+
+/protogen.sh
+
+.idea
+.pytest_cache

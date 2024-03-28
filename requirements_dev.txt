@@ -1,0 +1,6 @@
+-r requirements.txt
+
+
+betterproto[compiler]==2.0.0b6
+pytest
+pytest-asyncio
