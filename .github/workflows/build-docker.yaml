@@ -27,6 +27,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags:
-            - "ghcr.io/${{ github.repository }}/simtest:${{ env.DATETIME }}"
-            - ghcr.io/${{ github.repository }}/simtest:latest
+          tags: ghcr.io/${{ github.repository }}/simtest:${{ env.DATETIME }}, ghcr.io/${{ github.repository }}/simtest:latest
